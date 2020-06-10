@@ -13,6 +13,12 @@
                     <div class="gradient">
                         <div class="container">
                             <div class="content">
+                                <app-button
+                                        linkTo="#"
+                                        :addClass="['hello','there']"
+                                >
+                                    see review
+                                </app-button>
                                 <div class="item">
                                     {{item.title}}
                                 </div>
