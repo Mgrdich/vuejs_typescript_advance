@@ -13,6 +13,7 @@
             v-if="type==='btn'"
             :class="['button_default',...addClass]"
             :style="opStyle"
+            @click="action"
         >
         <slot/>
         </div>
@@ -28,6 +29,7 @@
         @Prop({required: true}) readonly type: 'btn' | 'link' | undefined;
         @Prop({required: false}) readonly opStyle: Object | undefined;
         @Prop({required: false}) readonly addClass: Array<string> | undefined;
+        @Prop({required: false}) readonly action: Function | undefined;
 
     }
 </script>

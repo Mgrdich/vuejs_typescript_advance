@@ -14,6 +14,7 @@
                         <div class="container">
                             <div class="content">
                                 <app-button
+                                        type="link"
                                         linkTo="#"
                                         :addClass="['hello','there']"
                                 >

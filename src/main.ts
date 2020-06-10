@@ -5,7 +5,13 @@ import store from './store'
 
 import Button from "@/components/UI/Button.vue";
 
+import {MdCard} from 'vue-material/dist/components';
+import 'vue-material/dist/vue-material.min.css'
+
 Vue.component('app-button',Button);
+
+/* Material */
+Vue.use(MdCard);
 
 Vue.config.productionTip = false
 
