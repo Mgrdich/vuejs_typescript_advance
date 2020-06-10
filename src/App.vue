@@ -1,13 +1,29 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <comp-header></comp-header>
+      <router-view/>
+    <comp-footer></comp-footer>
   </div>
 </template>
+<script lang="ts">
 
-<style>
+  import {Vue, Component} from "vue-property-decorator";
+  import Header from "@/components/Header-Footer/Header.vue";
+  import Footer from "@/components/Header-Footer/Footer.vue";
+
+
+  @Component({
+    components: {
+      'comp-header':Header,
+      'comp-footer':Footer
+    }
+  })
+  export default class App extends Vue {
+
+
+  }
+</script>
+<style lang="scss">
+ @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
  @import "assets/style.css";
 </style>

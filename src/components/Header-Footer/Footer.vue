@@ -1,18 +1,18 @@
 <template>
-    <div>
-
-    </div>
+    <footer>
+        <div class="container">
+            <div class="logo">
+                Game Center
+            </div>
+        </div>
+    </footer>
 </template>
 
 <script>
-    import {Component,Vue} from "vue-property-decorator";
+    import {Component, Vue} from "vue-property-decorator";
 
     @Component
-    export default class Footer extends Vue{
+    export default class Footer extends Vue {
 
     }
 </script>
-
-<style scoped>
-
-</style>
