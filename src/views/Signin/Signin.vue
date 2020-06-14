@@ -9,7 +9,7 @@
                 </div>
                 <div class="input_field">
                     <label>Password</label>
-                    <input type="text" name="password" v-model="formData.password">
+                    <input type="password" name="password" v-model="formData.password">
                 </div>
                 <button type="submit">Sign In</button>
             </form>
@@ -19,15 +19,16 @@
 
 <script lang="ts">
     import {Vue, Component} from "vue-property-decorator";
+    import {ISignIn} from "@/interfaces";
 
     @Component
     export default class SignIn extends Vue {
-        private formData:{email:string,password:string} = {
+        private formData:ISignIn = {
             email:'',
             password:''
         }
         public onSubmit():void {
-            console.log(this.formData);
+           this.$store.dispatch('admin/singIn',this.formData);
         }
 
     }

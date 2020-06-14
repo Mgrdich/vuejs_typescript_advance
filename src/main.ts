@@ -16,10 +16,9 @@ Vue.use(MdCard);
 
 Vue.use(VueResource);
 
-// (Vue as any).http.option.root= '';
+(Vue as any).http.options.root= '';
 
-const restApi:string = 'https://identitytoolkit.googleapis.com/v1/accounts?key=';
-const apiKey = process.env.VUE_API_KEY;
+console.log(process.env);
 
 Vue.config.productionTip = false
 

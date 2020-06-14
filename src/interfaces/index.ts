@@ -8,3 +8,8 @@ export interface IPosts {
     rating:number;
     date:string;
 }
+
+export interface ISignIn {
+    email:string;
+    password:string;
+}
