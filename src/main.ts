@@ -1,7 +1,8 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import VueResource from 'vue-resource';
+import store from './store';
 
 import Button from "@/components/UI/Button.vue";
 
@@ -12,6 +13,10 @@ Vue.component('app-button',Button);
 
 /* Material */
 Vue.use(MdCard);
+
+Vue.use(VueResource);
+
+(Vue as any).http.option.root= '';
 
 Vue.config.productionTip = false
 
