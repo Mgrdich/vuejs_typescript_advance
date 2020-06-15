@@ -5,7 +5,7 @@
             <form @submit.prevent="onSubmit" action="">
                 <div class="input_field">
                     <label>Email</label>
-                    <input-field $model="formData.email" validation="$v" name="email"/>
+                    <input-field v-model="formData.email" validation="$v" name="email"/>
                 </div>
                 <div class="input_field">
                     <label>Password</label>
@@ -20,7 +20,7 @@
 <script lang="ts">
     import {Vue, Component} from "vue-property-decorator";
     import {ISignIn} from "@/interfaces";
-    import { required ,minLength,email} from 'vuelidate/lib/validators';
+    import { required ,email} from 'vuelidate/lib/validators';
     import InputField from "@/components/UI/InputField.vue";
 
     @Component({
@@ -40,7 +40,7 @@
             password:''
         }
         public onSubmit():void {
-           // this.$store.dispatch('admin/singIn',this.formData);
+           this.$store.dispatch('admin/singIn',this.formData);
         }
     }
 </script>
