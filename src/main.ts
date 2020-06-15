@@ -2,7 +2,11 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import VueResource from 'vue-resource';
+import Vuelidate from "vuelidate";
+
 import store from './store';
+
+// import InputField from "@/components/UI/InputField.vue";
 
 import Button from "@/components/UI/Button.vue";
 
@@ -15,6 +19,10 @@ Vue.component('app-button',Button);
 Vue.use(MdCard);
 
 Vue.use(VueResource);
+
+Vue.use(Vuelidate);
+
+// Vue.use(InputField);
 
 (Vue as any).http.options.root= '';
 

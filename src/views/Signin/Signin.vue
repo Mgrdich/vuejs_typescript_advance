@@ -5,7 +5,7 @@
             <form @submit.prevent="onSubmit" action="">
                 <div class="input_field">
                     <label>Email</label>
-                    <input type="text" name="email" v-model="formData.email">
+                    <input-field $model="formData.email" validation="true" name="email"/>
                 </div>
                 <div class="input_field">
                     <label>Password</label>
@@ -20,8 +20,20 @@
 <script lang="ts">
     import {Vue, Component} from "vue-property-decorator";
     import {ISignIn} from "@/interfaces";
+    import { required } from 'vuelidate/lib/validators';
+    import InputField from "@/components/UI/InputField.vue";
 
-    @Component
+    @Component({
+        validations:{
+            formData:{
+                email:{required},
+                password: {required}
+            }
+        },
+        components:{
+            'input-field':InputField
+        }
+    })
     export default class SignIn extends Vue {
         private formData:ISignIn = {
             email:'',

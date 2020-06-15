@@ -25,11 +25,11 @@
 
     @Component
     export default class Button extends Vue {
-        @Prop({required: true}) readonly linkTo: string | undefined;
-        @Prop({required: true}) readonly type: 'btn' | 'link' | undefined;
-        @Prop({required: false}) readonly opStyle: Object | undefined;
-        @Prop({required: false}) readonly addClass: Array<string> | undefined;
-        @Prop({required: false}) readonly action: Function | undefined;
+        @Prop({required: true}) readonly linkTo: string | unknown;
+        @Prop({required: true}) readonly type: 'btn' | 'link' | unknown;
+        @Prop({required: false}) readonly opStyle: Object | unknown;
+        @Prop({required: false}) readonly addClass: Array<string> | unknown;
+        @Prop({required: false}) readonly action: Function | unknown;
 
     }
 </script>
