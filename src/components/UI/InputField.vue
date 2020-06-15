@@ -4,9 +4,9 @@
                 :type="type"
                 :name="name"
                 v-model="$model"
-                @blur="validation && $v[$model].$touch()"
+                @blur="validation && validation[$model].$touch()"
         >
-        {{$v[$model]}}
+        {{validation && validation[$model]}}
     </div>
 </template>
 
@@ -18,7 +18,7 @@
         @Prop({default:'text'}) readonly type: 'text' | 'password' | undefined;
         @Prop({required: true}) readonly name: 'string' | unknown;
         @Prop({required: true}) readonly $model: 'string' | unknown;
-        @Prop({default:false}) readonly validation: boolean | unknown;
+        @Prop({default:false}) readonly validation: any | unknown;
     }
 </script>
 
