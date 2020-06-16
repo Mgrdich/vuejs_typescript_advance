@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <comp-featured/>
-        <comp--content/>
+        <comp-content/>
     </div>
 </template>
 
@@ -13,7 +13,7 @@
     @Component({
         components: {
             'comp-featured':Featured,
-            'comp-Content':Content
+            'comp-content':Content
         }
     })
     export default class Home extends Vue {

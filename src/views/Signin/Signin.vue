@@ -3,14 +3,19 @@
         <div class="signin_container">
             <h1>Sign in</h1>
             <form @submit.prevent="onSubmit" action="">
-                <div class="input_field">
-                    <label>Email</label>
-                    <input-field v-model="formData.email" :validation="$v" name="email"/>
-                </div>
-                <div class="input_field">
-                    <label>Password</label>
-                    <input-field v-model="formData.password" :validation="$v" name="password" type="password"/>
-                </div>
+                    <input-field
+                            label="Email"
+                            v-model="formData.email"
+                            :validation="$v.formData.email"
+                            name="email"
+                    />
+                    <input-field
+                            label="Password"
+                            v-model="formData.password"
+                            :validation="$v.formData.password"
+                            name="password"
+                            type="password"
+                    />
                 <button type="submit">Sign In</button>
             </form>
         </div>
@@ -41,6 +46,7 @@
         }
         public onSubmit():void {
             console.log(this.formData);
+            console.log(this.$v.formData);
            // this.$store.dispatch('admin/singIn',this.formData);
         }
     }
