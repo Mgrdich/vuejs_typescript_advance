@@ -5,11 +5,11 @@
             <form @submit.prevent="onSubmit" action="">
                 <div class="input_field">
                     <label>Email</label>
-                    <input-field v-model="formData.email" validation="$v" name="email"/>
+                    <input-field v-model="formData.email" :validation="$v" name="email"/>
                 </div>
                 <div class="input_field">
                     <label>Password</label>
-                    <input type="password" name="password" v-model="formData.password">
+                    <input-field v-model="formData.password" :validation="$v" name="password" type="password"/>
                 </div>
                 <button type="submit">Sign In</button>
             </form>
@@ -40,7 +40,8 @@
             password:''
         }
         public onSubmit():void {
-           this.$store.dispatch('admin/singIn',this.formData);
+            console.log(this.formData);
+           // this.$store.dispatch('admin/singIn',this.formData);
         }
     }
 </script>

@@ -2,11 +2,11 @@
     <div>
         <input
                 :type="type"
-                :name="name"
-                v-model="model"
-                @blur="validation && validation.model.$touch()"
+                :value="model"
+                v-on:change="$emit('change', $event.target.value)"
+                @blur="validation && validation['formData'].email.$touch()"
         >
-        {{validation && validation[$model]}}
+        {{validation && validation[model]}}
     </div>
 </template>
 
