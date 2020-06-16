@@ -16,8 +16,8 @@
     @Component
     export default class InputField extends Vue {
         @Prop({default:'text',type:String}) readonly type!: 'text' | 'password';
-        @Prop({required: true}) readonly name: 'string' | unknown;
-        @Prop({default:false}) readonly validation: any | unknown;
+        @Prop({required: true}) readonly name!: 'string';
+        @Prop({default:false}) readonly validation!: any;
 
         @Model('change', { type: String }) readonly model!: string;
     }
