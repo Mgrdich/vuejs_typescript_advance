@@ -25,14 +25,14 @@
 <script lang="ts">
     import {Vue, Component} from "vue-property-decorator";
     import {ISignIn} from "@/interfaces";
-    import { required ,email} from 'vuelidate/lib/validators';
+    import {required, email, minLength} from 'vuelidate/lib/validators';
     import InputField from "@/components/UI/InputField.vue";
 
     @Component({
         validations:{
             formData:{
                 email:{required,email},
-                password: {required}
+                password: {required,minLength:minLength(5)}
             }
         },
         components:{
@@ -45,8 +45,8 @@
             password:''
         }
         public onSubmit():void {
-            console.log(this.formData);
-            console.log(this.$v.formData);
+            this.$v.$touch();
+
            // this.$store.dispatch('admin/singIn',this.formData);
         }
     }
