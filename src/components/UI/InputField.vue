@@ -15,12 +15,16 @@
             <label class="error" :for="name" v-else-if="validation && validation.$error">
                 This Field is invalid
             </label>
+            <label :for="name" v-else-if="customValidation.condition">
+                {{customValidation.text}}
+            </label>
         </div>
     </div>
 </template>
 
 <script lang="ts">
     import {Vue, Component, Prop,Model} from "vue-property-decorator";
+    import {InputFieldValidation} from "@/interfaces";
 
     @Component
     export default class InputField extends Vue {
@@ -28,7 +32,7 @@
         @Prop({required: true}) readonly name!: 'string';
         @Prop({default:false}) readonly validation!: any;
         @Prop({type:String}) readonly label!: string;
-        @Prop() readonly formValidation!: any;
+        @Prop() readonly customValidation!: InputFieldValidation;
 
         @Model('change', { type: String }) readonly model!: string;
     }

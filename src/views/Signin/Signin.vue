@@ -7,6 +7,10 @@
                             label="Email"
                             v-model.trim="formData.email"
                             :validation="$v.formData.email"
+                            :customValidation="{
+                                condition:authFailed,
+                                text:'Please check your email'
+                             }"
                             name="email"
                     />
                     <input-field

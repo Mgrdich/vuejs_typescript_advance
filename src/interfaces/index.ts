@@ -13,3 +13,8 @@ export interface ISignIn {
     email:string;
     password:string;
 }
+
+export interface InputFieldValidation {
+    condition:boolean;
+    text:string;
+}
