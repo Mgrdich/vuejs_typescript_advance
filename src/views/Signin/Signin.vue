@@ -5,13 +5,13 @@
             <form @submit.prevent="onSubmit" action="">
                     <input-field
                             label="Email"
-                            v-model="formData.email"
+                            v-model.trim="formData.email"
                             :validation="$v.formData.email"
                             name="email"
                     />
                     <input-field
                             label="Password"
-                            v-model="formData.password"
+                            v-model.trim="formData.password"
                             :validation="$v.formData.password"
                             name="password"
                             type="password"
@@ -44,10 +44,15 @@
             email:'',
             password:''
         }
-        public onSubmit():void {
-            this.$v.$touch();
 
-           // this.$store.dispatch('admin/singIn',this.formData);
+        public onSubmit(): void {
+            this.$v.$touch();
+            this.$store.dispatch('admin/singIn', this.formData);
         }
+
+        get authFailed():boolean {
+            return this.$store.state.admin.authFailed;
+        }
+
     }
 </script>
