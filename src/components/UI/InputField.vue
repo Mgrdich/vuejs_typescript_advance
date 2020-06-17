@@ -9,16 +9,13 @@
                 @blur="validation && validation.$touch()"
         >
         <div v-if="validation.$error">
-            <label class="error" :for="name" v-if="validation && 0">
-                This Field is required
-            </label>
-            <label class="error" :for="name" v-else-if="validation && validation.$error">
+            <label class="error" :for="name" v-if="validation && validation.$error">
                 This Field is invalid
             </label>
-            <label :for="name" v-else-if="customValidation.condition">
-                {{customValidation.text}}
-            </label>
         </div>
+        <label class="error" :for="name" v-if="customValidation && customValidation.condition">
+            {{customValidation.text}}
+        </label>
     </div>
 </template>
 

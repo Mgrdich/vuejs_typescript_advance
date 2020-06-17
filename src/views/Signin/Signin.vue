@@ -9,7 +9,7 @@
                             :validation="$v.formData.email"
                             :customValidation="{
                                 condition:authFailed,
-                                text:'Please check your email'
+                                text:'check your email or password'
                              }"
                             name="email"
                     />
@@ -21,6 +21,7 @@
                             type="password"
                     />
                 <button type="submit">Sign In</button>
+                {{authFailed}}
             </form>
         </div>
     </div>
@@ -56,6 +57,10 @@
 
         get authFailed():boolean {
             return this.$store.state.admin.authFailed;
+        }
+
+        destroyed() {
+            this.$store.commit('admin/authValidation',false);
         }
 
     }
