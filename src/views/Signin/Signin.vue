@@ -21,7 +21,6 @@
                             type="password"
                     />
                 <button type="submit">Sign In</button>
-                {{authFailed}}
             </form>
         </div>
     </div>

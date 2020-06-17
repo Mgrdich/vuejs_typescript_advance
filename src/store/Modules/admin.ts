@@ -1,5 +1,6 @@
 import {ISignIn} from "@/interfaces";
 import Vue from "vue";
+import router from "../../router"
 
 const restApi:string = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
 const apiKey = process.env.VUE_APP_API_KEY;
@@ -12,14 +13,30 @@ export const admin = {
         refresh: null,
         authFailed: false
     },
-    getters: {},
+    getters: {
+        isAuth(state:any) {
+            return !!state.token;
+        }
+    },
     mutations: {
         authUser(state:any,authData:any):void {
             state.token = authData.idToken;
             state.refresh = authData.refreshToken;
+
+            if(authData.type === 'signin') {
+                router.push('/dashboard')
+                    .then(function () {});
+            }
         },
         authValidation(state:any,validateFail:boolean):void {
             state.authFailed = validateFail;
+        },
+        logOut(state:any){
+            state.token = null;
+            state.refresh = null;
+            localStorage.removeItem('token');
+            localStorage.removeItem('refresh');
+            router.push('/').then(function () {});
         }
     },
     actions: {
