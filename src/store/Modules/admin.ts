@@ -59,6 +59,7 @@ export const admin = {
     },
     actions: {
         singIn({commit}: any, payload: ISignIn) {
+            commit('setSignLoader',true);
             (Vue as any).http.post(restApi, {
                 ...payload,
                 returnSecureToken: true
@@ -68,7 +69,9 @@ export const admin = {
                     localStorage_TokenSet(authData);
                 }).catch((err: any) => {
                 commit('authValidation', true);
-            });
+            }).finally(function () {
+                commit('setSignLoader',false);
+            })
         },
         refreshToken({commit}: any, payload: any) {
             const refreshToken: string | null = localStorage.getItem('refresh');

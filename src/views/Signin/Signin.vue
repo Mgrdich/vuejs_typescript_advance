@@ -20,7 +20,7 @@
                             name="password"
                             type="password"
                     />
-                <button type="submit" :disabled="isLoading">Sign In</button>
+                <button class="button_default" type="submit" :disabled="isLoading">Sign In</button>
             </form>
         </div>
     </div>
