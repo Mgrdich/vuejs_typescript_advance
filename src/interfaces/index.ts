@@ -18,3 +18,9 @@ export interface InputFieldValidation {
     condition:boolean;
     text:string;
 }
+
+export interface IauthData {
+    idToken:string;
+    refreshToken:string;
+    type: 'signin' | 'refresh' ;
+}

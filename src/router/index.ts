@@ -3,9 +3,21 @@ import VueRouter, {RouteConfig} from 'vue-router'
 import Home from '@/views/Home/Home.vue';
 import SignIn from "@/views/Signin/Signin.vue";
 import Dashboard from "@/views/Dashboard/Dashboard.vue";
-
+import store from '../store';
+import {NavigationGuardNext, Route} from "vue-router/types/router";
 
 Vue.use(VueRouter);
+
+const authGuard = {
+    beforeEnter: (to: Route, from: Route, next: NavigationGuardNext) => {
+        if (store.getters['admin/isAuth']) {
+            next();
+        } else {
+            next('/')
+        }
+    }
+};
+
 
 const routes: Array<RouteConfig> = [
     {
@@ -24,7 +36,8 @@ const routes: Array<RouteConfig> = [
     {
         path: '/dashboard',
         name: 'Dashboard',
-        component: Dashboard
+        component: Dashboard,
+        ...authGuard
     }
 ]
 

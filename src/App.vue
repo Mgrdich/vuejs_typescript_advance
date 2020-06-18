@@ -19,8 +19,9 @@
     }
   })
   export default class App extends Vue {
-
-
+      created() {
+        this.$store.dispatch('admin/refreshToken');
+      }
   }
 </script>
 <style lang="scss">
