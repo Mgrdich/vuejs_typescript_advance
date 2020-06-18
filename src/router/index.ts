@@ -10,11 +10,30 @@ Vue.use(VueRouter);
 
 const authGuard = {
     beforeEnter: (to: Route, from: Route, next: NavigationGuardNext) => {
-        if (store.getters['admin/isAuth']) {
-            next();
-        } else {
-            next('/')
+        const redirect: () => void = function (): void {
+
+            if (store.getters['admin/isAuth']) {
+                if (to.path === '/signin') {
+                    next('/dashboard');
+                } else {
+                    next();
+                }
+            } else {
+                if(to.path==='/signin') {
+                    next()
+                } else {
+                    next('/');
+                }
+            }
         }
+        if(store.getters["admin/isPageLoading"]){
+            store.watch((state, getters)=>getters["admin/isPageLoading"],()=>{
+                redirect();
+            })
+        } else {
+            redirect();
+        }
+
     }
 };
 
@@ -31,7 +50,8 @@ const routes: Array<RouteConfig> = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: SignIn
+        component: SignIn,
+        ...authGuard
     },
     {
         path: '/dashboard',
