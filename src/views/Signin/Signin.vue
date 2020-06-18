@@ -20,7 +20,7 @@
                             name="password"
                             type="password"
                     />
-                <button type="submit">Sign In</button>
+                <button type="submit" :disabled="isLoading">Sign In</button>
             </form>
         </div>
     </div>
@@ -56,6 +56,10 @@
 
         get authFailed():boolean {
             return this.$store.state.admin.authFailed;
+        }
+
+        get isLoading():boolean {
+            return this.$store.getters["admin/isSignInLoading"];
         }
 
         destroyed() {

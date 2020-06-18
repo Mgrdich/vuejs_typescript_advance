@@ -26,7 +26,7 @@
         this.$store.dispatch('admin/refreshToken');
       }
     get isLoading():boolean {
-      return this.$store.getters["admin/isAuthLoading"];
+      return this.$store.getters["admin/isPageLoading"];
     }
   }
 </script>

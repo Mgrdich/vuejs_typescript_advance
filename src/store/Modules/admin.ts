@@ -15,15 +15,19 @@ export const admin = {
         token: null,
         refresh: null,
         authFailed: false,
-        pageLoading: true
+        pageLoading: true,
+        singInLoading:false,
     },
     getters: {
-        isAuth(state: any) {
+        isAuth(state: any):boolean {
             return !!state.token;
         },
-        isPageLoading(state: any) {
+        isPageLoading(state: any):boolean {
             return state.pageLoading;
         },
+        isSignInLoading(state:any):boolean {
+            return state.singInLoading;
+        }
     },
     mutations: {
         authUser(state: any, authData: IauthData): void {
@@ -34,8 +38,6 @@ export const admin = {
                 router.push('/dashboard')
                     .then(function () {
                     });
-            } else {
-
             }
         },
         authValidation(state: any, validateFail: boolean): void {
@@ -50,6 +52,9 @@ export const admin = {
         },
         setPageLoader(state:any,loading:boolean) {
             state.pageLoading = loading;
+        },
+        setSignLoader(state:any,loading:boolean) {
+            state.singInLoading = loading;
         }
     },
     actions: {
@@ -69,7 +74,6 @@ export const admin = {
             const refreshToken: string | null = localStorage.getItem('refresh');
 
             if (refreshToken) {
-                commit("setPageLoader",true);
                 (Vue as any).http.post(refreshApi, {
                     grant_type: 'refresh_token',
                     refresh_token: refreshToken
@@ -82,7 +86,10 @@ export const admin = {
                         };
                         commit("authUser", aData);
                         localStorage_TokenSet(aData);
+                        commit("setPageLoader", false);
                     })
+            } else {
+                commit("setPageLoader",false);
             }
         }
     },
