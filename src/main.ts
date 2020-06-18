@@ -12,8 +12,10 @@ import Button from "@/components/UI/Button.vue";
 
 import {MdCard} from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css'
+import Loader from "@/components/UI/Loader.vue";
 
 Vue.component('app-button',Button);
+Vue.component('app-loader',Loader);
 
 /* Material */
 Vue.use(MdCard);

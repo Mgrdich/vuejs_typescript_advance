@@ -1,8 +1,11 @@
 <template>
   <div id="app">
-    <comp-header></comp-header>
+    <div v-if="!isLoading">
+      <comp-header></comp-header>
       <router-view/>
-    <comp-footer></comp-footer>
+      <comp-footer></comp-footer>
+    </div>
+    <app-loader v-else></app-loader>
   </div>
 </template>
 <script lang="ts">
@@ -19,9 +22,12 @@
     }
   })
   export default class App extends Vue {
-      created() {
+    created() {
         this.$store.dispatch('admin/refreshToken');
       }
+    get isLoading():boolean {
+      return this.$store.getters["admin/isAuthLoading"];
+    }
   }
 </script>
 <style lang="scss">
