@@ -12,11 +12,13 @@ import store from './store';
 import InputField from "@/components/UI/InputField.vue";
 import Button from "@/components/UI/Button.vue";
 import Loader from "@/components/UI/Loader.vue";
+import DropDown from "@/components/UI/DropDown.vue";
 
 /* Components */
 Vue.component('app-button',Button);
 Vue.component('app-loader',Loader);
 Vue.component('app-input',InputField);
+Vue.component('app-dropdown',DropDown);
 
 /* Plugins */
 Vue.use(MdCard);

@@ -18,11 +18,19 @@
                     :validation="$v.formData.desc"
                     name="title"
             />
-            <div class="input_field">
-                <wysiwg
-                    v-model="formData.contents"
-                />
-            </div>
+            <app-dropdown
+                    label="Rating"
+                    v-model="formData.rating"
+                    :validation="$v.formData.rating"
+                    name="rating"
+                    :data="[
+                        {value:1,translation:1},
+                        {value:2,translation:2},
+                        {value:3,translation:3},
+                        {value:4,translation:4},
+                        {value:5,translation:5},
+                    ]"
+            />
             <button type="submit" class="button_default">Submit</button>
         </form>
     </div>
@@ -52,6 +60,7 @@
 
         private Submit():void {
             this.$v.$touch();
+            console.log(this.formData);
             console.log(this.$v.formData);
         }
 

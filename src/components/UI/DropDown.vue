@@ -5,12 +5,13 @@
         :value="model"
         :name="name"
         :disabled="disable"
-        v-on:change="$emit('change', $event.target.value)"
+        @blur="validation && validation.$touch()"
+        v-on:change="$emit('input', $event.target.value)"
         >
             <option v-for="item in data" :value="item.value">{{item.translation}}</option>
         </select>
 
-        <label class="error" :for="name" v-if="validation && validation.$error && validation.$error">
+        <label class="error" :for="name" v-if="validation && validation.$error">
             This Field is invalid
         </label>
         <label class="error" :for="name" v-else-if="customValidation && customValidation.condition">
@@ -21,14 +22,18 @@
 
 <script lang="ts">
     import {Vue, Component, Prop, Model} from "vue-property-decorator";
-    import {DropdownData} from "@/interfaces";
+    import {DropdownData, InputFieldValidation} from "@/interfaces";
 
     @Component
     export default class DropDown extends Vue {
         @Prop({default:[],type:Array}) readonly data!: DropdownData;
         @Prop({required: true}) readonly name!: 'string';
         @Prop({default:false}) readonly disable!: boolean;
-        @Model('change', { type: String }) readonly model!: string;
+        @Prop({default:false}) readonly validation!: any;
+        @Prop({type:String}) readonly label!: string;
+        @Prop() readonly customValidation!: InputFieldValidation;
+
+        @Model('input', { type: String }) readonly model!: string;
     }
 </script>
 

@@ -9,11 +9,10 @@
                 v-on:change="$emit('change', $event.target.value)"
                 @blur="validation && validation.$touch()"
         >
-        <div v-if="validation.$error">
-            <label class="error" :for="name" v-if="validation && validation.$error">
+
+        <label class="error" :for="name" v-if="validation && validation.$error">
                 This Field is invalid
-            </label>
-        </div>
+        </label>
         <label class="error" :for="name" v-else-if="customValidation && customValidation.condition">
             {{customValidation.text}}
         </label>
@@ -25,7 +24,7 @@
     import {InputFieldValidation} from "@/interfaces";
 
     @Component
-    export default class InputField extends Vue {
+    export default class InputField extends Vue { ///TODO refactor input related decorators in custom decorator
         @Prop({default:'text',type:String}) readonly type!: 'text' | 'password';
         @Prop({required: true}) readonly name!: 'string';
         @Prop({default:false}) readonly validation!: any;
