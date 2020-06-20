@@ -32,5 +32,7 @@
 </script>
 <style lang="scss">
  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+ @import "~vue-wysiwyg/dist/vueWysiwyg.css";
+ @import "~vue-material/dist/vue-material.min.css";
  @import "assets/style.css";
 </style>

@@ -1,29 +1,28 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
+
 import VueResource from 'vue-resource';
 import Vuelidate from "vuelidate";
+import wysiwyg from "vue-wysiwyg";
+import {MdCard} from 'vue-material/dist/components';
 
 import store from './store';
 
 import InputField from "@/components/UI/InputField.vue";
-
 import Button from "@/components/UI/Button.vue";
-
-import {MdCard} from 'vue-material/dist/components';
-import 'vue-material/dist/vue-material.min.css'
 import Loader from "@/components/UI/Loader.vue";
 
+/* Components */
 Vue.component('app-button',Button);
 Vue.component('app-loader',Loader);
 Vue.component('app-input',InputField);
 
-/* Material */
+/* Plugins */
 Vue.use(MdCard);
-
 Vue.use(VueResource);
-
 Vue.use(Vuelidate);
+Vue.use(wysiwyg, {}); // config is optional. more below
 
 
 

@@ -48,7 +48,9 @@
 
         public onSubmit(): void {
             this.$v.$touch();
-            this.$store.dispatch('admin/singIn', this.formData);
+            if(!this.$v.formData.$invalid) {
+                this.$store.dispatch('admin/singIn', this.formData);
+            }
         }
 
         get authFailed():boolean {
