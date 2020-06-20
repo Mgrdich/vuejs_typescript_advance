@@ -14,6 +14,21 @@ export interface ISignIn {
     password:string;
 }
 
+export interface IAddPosts {
+    title: string;
+    desc: string;
+    contents: string;
+    rating:string;
+}
+
+
+export type DropdownData = Array<{
+    translation:string;
+    value:string|number;
+}>
+
+
+
 export interface InputFieldValidation {
     condition:boolean;
     text:string;

@@ -5,6 +5,7 @@
                 :type="type"
                 :value="model"
                 :name="name"
+                :disabled="disable"
                 v-on:change="$emit('change', $event.target.value)"
                 @blur="validation && validation.$touch()"
         >
@@ -28,6 +29,7 @@
         @Prop({default:'text',type:String}) readonly type!: 'text' | 'password';
         @Prop({required: true}) readonly name!: 'string';
         @Prop({default:false}) readonly validation!: any;
+        @Prop({default:false}) readonly disable!: boolean;
         @Prop({type:String}) readonly label!: string;
         @Prop() readonly customValidation!: InputFieldValidation;
 

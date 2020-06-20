@@ -1,17 +1,59 @@
 <template>
-
+    <div class="dashboard_form">
+        <h1>add Posts</h1>
+        <form @submit.prevent="Submit">
+            <app-input
+                    label="Text"
+                    v-model.trim="formData.title"
+                    :validation="$v.formData.title"
+                    name="title"
+            />
+            <app-input
+                    label="Description"
+                    v-model.trim="formData.desc"
+                    :customValidation="{
+                                condition:!$v.formData.desc.maxLength,
+                                text:`max length is ${$v.formData.desc.maxLength.max} elements`
+                             }"
+                    :validation="$v.formData.desc"
+                    name="title"
+            />
+            <div class="input_field">
+                <wysiwg
+                    v-model="formData.contents"
+                />
+            </div>
+            <button type="submit" class="button_default">Submit</button>
+        </form>
+    </div>
 </template>
 
 <script lang="ts">
     import {Vue, Component} from "vue-property-decorator";
+    import {required,maxLength} from 'vuelidate/lib/validators';
+    import {IAddPosts} from "@/interfaces";
 
-    @Component
+    @Component({
+        validations:{
+            formData:{
+                title:{required},
+                desc:{required,maxLength:maxLength(100)},
+                rating:{required}
+            }
+        }
+    })
     export default class AddPosts extends Vue {
+        private formData: IAddPosts = {
+            title: '',
+            desc: '',
+            contents: '',
+            rating: ''
+        }
 
+        private Submit():void {
+            this.$v.$touch();
+            console.log(this.$v.formData);
+        }
 
     }
 </script>
-
-<style lang="">
-
-</style>

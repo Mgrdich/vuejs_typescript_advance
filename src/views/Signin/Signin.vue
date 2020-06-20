@@ -30,7 +30,6 @@
     import {Vue, Component} from "vue-property-decorator";
     import {ISignIn} from "@/interfaces";
     import {required, email, minLength} from 'vuelidate/lib/validators';
-    import InputField from "@/components/UI/InputField.vue";
 
     @Component({
         validations:{
