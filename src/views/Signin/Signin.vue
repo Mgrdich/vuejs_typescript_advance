@@ -3,7 +3,7 @@
         <div class="signin_container">
             <h1>Sign in</h1>
             <form @submit.prevent="onSubmit" action="">
-                    <input-field
+                    <app-input
                             label="Email"
                             v-model.trim="formData.email"
                             :validation="$v.formData.email"
@@ -13,7 +13,7 @@
                              }"
                             name="email"
                     />
-                    <input-field
+                    <app-input
                             label="Password"
                             v-model.trim="formData.password"
                             :validation="$v.formData.password"
@@ -38,9 +38,6 @@
                 email:{required,email},
                 password: {required,minLength:minLength(5)}
             }
-        },
-        components:{
-            'input-field':InputField
         }
     })
     export default class SignIn extends Vue {

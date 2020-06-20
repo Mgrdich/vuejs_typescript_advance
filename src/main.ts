@@ -6,7 +6,7 @@ import Vuelidate from "vuelidate";
 
 import store from './store';
 
-// import InputField from "@/components/UI/InputField.vue";
+import InputField from "@/components/UI/InputField.vue";
 
 import Button from "@/components/UI/Button.vue";
 
@@ -16,6 +16,7 @@ import Loader from "@/components/UI/Loader.vue";
 
 Vue.component('app-button',Button);
 Vue.component('app-loader',Loader);
+Vue.component('app-input',InputField);
 
 /* Material */
 Vue.use(MdCard);
@@ -24,11 +25,9 @@ Vue.use(VueResource);
 
 Vue.use(Vuelidate);
 
-// Vue.use(InputField);
+
 
 (Vue as any).http.options.root= '';
-
-console.log(process.env);
 
 Vue.config.productionTip = false
 

@@ -1,42 +1,17 @@
 import Vue from 'vue'
 import VueRouter, {RouteConfig} from 'vue-router'
+import {authGuard} from "@/router/guard";
+
+
 import Home from '@/views/Home/Home.vue';
 import SignIn from "@/views/Signin/Signin.vue";
 import Dashboard from "@/views/Dashboard/Dashboard.vue";
-import store from '../store';
-import {NavigationGuardNext, Route} from "vue-router/types/router";
+import MainDashboard from "@/views/Dashboard/Main.vue";
+import AddPosts from "@/views/Dashboard/AddPosts.vue";
+import PostsLists from "@/views/Dashboard/PostsLists.vue";
+
 
 Vue.use(VueRouter);
-
-const authGuard = {
-    beforeEnter: (to: Route, from: Route, next: NavigationGuardNext) => {
-        const redirect: () => void = function (): void {
-
-            if (store.getters['admin/isAuth']) {
-                if (to.path === '/signin') {
-                    next('/dashboard');
-                } else {
-                    next();
-                }
-            } else {
-                if(to.path==='/signin') {
-                    next()
-                } else {
-                    next('/');
-                }
-            }
-        }
-        if(store.getters["admin/isPageLoading"]){
-            store.watch((state, getters)=>getters["admin/isPageLoading"],()=>{
-                redirect();
-            })
-        } else {
-            redirect();
-        }
-
-    }
-};
-
 
 const routes: Array<RouteConfig> = [
     {
@@ -57,7 +32,12 @@ const routes: Array<RouteConfig> = [
         path: '/dashboard',
         name: 'Dashboard',
         component: Dashboard,
-        ...authGuard
+        ...authGuard,
+        children:[
+            {path: '', component: MainDashboard},
+            {path:'add_posts',component:AddPosts},
+            {path:'posts_list',component:PostsLists}
+        ]
     }
 ]
 

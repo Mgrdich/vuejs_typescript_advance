@@ -13,7 +13,7 @@
                 This Field is invalid
             </label>
         </div>
-        <label class="error" :for="name" v-if="customValidation && customValidation.condition">
+        <label class="error" :for="name" v-else-if="customValidation && customValidation.condition">
             {{customValidation.text}}
         </label>
     </div>
