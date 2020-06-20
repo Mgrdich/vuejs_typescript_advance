@@ -314,7 +314,7 @@ button {
     color:red;
 }
 
-.md-dialog {
+.md-dialog-container {
     background: #ffffff;
     box-sizing: border-box;
     padding: 20px;

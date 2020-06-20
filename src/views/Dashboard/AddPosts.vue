@@ -1,7 +1,7 @@
 <template>
     <div class="dashboard_form">
         <h1>add Posts</h1>
-        <form @submit.prevent="Submit">
+        <form @submit.prevent="submit">
             <app-input
                     label="Text"
                     v-model.trim="formData.title"
@@ -18,6 +18,7 @@
                     :validation="$v.formData.desc"
                     name="title"
             />
+            <wysiwyg v-model="formData.contents"/>
             <app-dropdown
                     label="Rating"
                     v-model="formData.rating"
@@ -33,20 +34,29 @@
             />
             <button type="submit" class="button_default">Submit</button>
         </form>
+        <md-dialog-confirm
+                :md-active.sync="modal"
+                md-content="your post has no content, are you sure you want to post this ?"
+                md-confirm-text="Agree"
+                md-cancel-text="Disagree"
+                @md-cancel="onCancelModal"
+                @md-confirm="onConfirmModal"
+        />
+
     </div>
 </template>
 
 <script lang="ts">
     import {Vue, Component} from "vue-property-decorator";
-    import {required,maxLength} from 'vuelidate/lib/validators';
+    import {required, maxLength} from 'vuelidate/lib/validators';
     import {IAddPosts} from "@/interfaces";
 
     @Component({
-        validations:{
-            formData:{
-                title:{required},
-                desc:{required,maxLength:maxLength(100)},
-                rating:{required}
+        validations: {
+            formData: {
+                title: {required},
+                desc: {required, maxLength: maxLength(100)},
+                rating: {required},
             }
         }
     })
@@ -56,12 +66,31 @@
             desc: '',
             contents: '',
             rating: ''
+        };
+        private modal: boolean = false;
+
+        public submit(): void {
+            this.$v.$touch();
+            if (!this.$v.$invalid) {
+                if (this.formData.contents === '') {
+                    this.modal = true;
+                } else {
+                    this.addPost();
+                }
+            }
+            this.modal = true;
         }
 
-        private Submit():void {
-            this.$v.$touch();
-            console.log(this.formData);
-            console.log(this.$v.formData);
+        public addPost(): void {
+            console.log("ssssss");
+        }
+
+        public onCancelModal(): void {
+            this.modal = false;
+        }
+        public onConfirmModal(): void {
+            this.modal = false;
+            this.addPost();
         }
 
     }
