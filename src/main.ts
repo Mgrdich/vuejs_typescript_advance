@@ -24,14 +24,13 @@ Vue.component('app-dropdown',DropDown);
 /* MATERIAL */
 Vue.use(MdCard);
 Vue.use(MdButton);
-Vue.use(MdDialog); //replace with Confirm
-Vue.use(MdDialogConfirm); //replace with Confirm
+Vue.use(MdDialog); //TODO instead of use all the other models
+Vue.use(MdDialogConfirm);
 Vue.use(MdContent);
 Vue.use(VueResource);
 Vue.use(Vuelidate);
 Vue.use(wysiwyg, {}); // config is optional. more below
 
-console.log(MdDialogConfirm);
 
 (Vue as any).http.options.root= '';
 
