@@ -3,12 +3,13 @@
         <h1>add Posts</h1>
         <form @submit.prevent="submit">
             <div>
-                <img :src="imageUploaded" alt="">
+                <img :src="imageUploaded" alt="404"/>
             </div>
             <div class="input_field">
                 <input
                         type="file"
                         @change="processFiles($event)"
+                        ref="inputFile"
                 >
             </div>
             <app-input
@@ -58,7 +59,7 @@
 </template>
 
 <script lang="ts">
-    import {Vue, Component} from "vue-property-decorator";
+    import {Vue, Component, Ref} from "vue-property-decorator";
     import {required, maxLength} from 'vuelidate/lib/validators';
     import {IAddPosts} from "@/interfaces";
 
@@ -72,11 +73,14 @@
         }
     })
     export default class AddPosts extends Vue {
+        @Ref('inputFile') readonly inputFile!: HTMLFormElement
+
         private formData: IAddPosts = {
             title: '',
             desc: '',
             contents: '',
-            rating: ''
+            rating: '',
+            img:''
         };
         private modal: boolean = false;
 
@@ -92,7 +96,6 @@
             let imageUrl = this.$store.getters['admin/imageUpload'];
             this.formData.img = imageUrl;
             return imageUrl;
-
         }
 
         public submit(): void {
@@ -115,8 +118,11 @@
                 title: '',
                 desc: '',
                 contents: '',
-                rating: ''
+                rating: '',
+                img:''
             };
+            this.inputFile.value = '';
+            this.$store.commit('admin/setImageUpload',null);
             this.$v.$reset();
         }
 
