@@ -78,11 +78,10 @@
                     this.addPost();
                 }
             }
-            this.modal = true;
         }
 
         public addPost(): void {
-            console.log("ssssss");
+           this.$store.dispatch('admin/addPost',this.formData);
         }
 
         public onCancelModal(): void {

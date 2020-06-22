@@ -17,7 +17,9 @@ export const admin = {
         authFailed: false,
         pageLoading: true,
         singInLoading:false,
-    },
+        addPost:false,
+        imageUpload:null
+},
     getters: {
         isAuth(state: any):boolean {
             return !!state.token;
@@ -27,6 +29,12 @@ export const admin = {
         },
         isSignInLoading(state:any):boolean {
             return state.singInLoading;
+        },
+        addPostStatus(state:any) {
+            return state.addPost;
+        },
+        imageUpload(state:any){
+            return state.imageUpload
         }
     },
     mutations: {
@@ -55,7 +63,14 @@ export const admin = {
         },
         setSignLoader(state:any,loading:boolean) {
             state.singInLoading = loading;
+        },
+        setAddPost(state:any,postStatus:boolean) {
+            state.addPost = postStatus;
+        },
+        setImageUpload(state:any,imageUploadStatus:string|null) {
+            state.imageUpload = imageUploadStatus;
         }
+
     },
     actions: {
         singIn({commit}: any, payload: ISignIn) {
@@ -94,6 +109,13 @@ export const admin = {
             } else {
                 commit("setPageLoader",false);
             }
+        },
+        addPost({commit, state}: any, payload: any) {
+            (Vue as any).http.post(`posts.json?auth=${state.token}`, payload)
+                .then((res: any) => res.json())
+                .then((res: any) => {
+
+                });
         }
     },
 }

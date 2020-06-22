@@ -24,7 +24,7 @@ Vue.component('app-dropdown',DropDown);
 /* MATERIAL */
 Vue.use(MdCard);
 Vue.use(MdButton);
-Vue.use(MdDialog); //TODO instead of use all the other models
+Vue.use(MdDialog);
 Vue.use(MdDialogConfirm);
 Vue.use(MdContent);
 Vue.use(VueResource);
@@ -32,7 +32,7 @@ Vue.use(Vuelidate);
 Vue.use(wysiwyg, {}); // config is optional. more below
 
 
-(Vue as any).http.options.root= '';
+(Vue as any).http.options.root= process.env.VUE_APP_FIREBASEDATABASE;
 
 Vue.config.productionTip = false
 
