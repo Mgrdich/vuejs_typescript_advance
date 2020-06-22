@@ -2,6 +2,9 @@
     <div class="dashboard_form">
         <h1>add Posts</h1>
         <form @submit.prevent="submit">
+            <div>
+                <img :src="imageUploaded" alt="">
+            </div>
             <div class="input_field">
                 <input
                         type="file"
@@ -83,6 +86,13 @@
                 this.clearPost();
             }
             return status;
+        }
+
+        get imageUploaded():string {
+            let imageUrl = this.$store.getters['admin/imageUpload'];
+            this.formData.img = imageUrl;
+            return imageUrl;
+
         }
 
         public submit(): void {

@@ -19,6 +19,7 @@ export interface IAddPosts {
     desc: string;
     contents: string;
     rating:string;
+    img:string;
 }
 
 

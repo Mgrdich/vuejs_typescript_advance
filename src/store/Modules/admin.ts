@@ -6,8 +6,8 @@ import {localStorage_RemoveToken, localStorage_TokenSet} from "@/util/functions"
 const apiKey = process.env.VUE_APP_API_KEY;
 const restApi: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
 const refreshApi: string = `https://securetoken.googleapis.com/v1/token?key=${apiKey}`;
-const cloudinaryUrl = process.env.VUE_APP_CLOUDINARY;
-const cloudinaryPreset = process.env.process.env.VUE_APP_CLOUDINARY;
+const CLOUDINARY_URL = process.env.VUE_APP_CLOUDINARY;
+const CLOUDINARY_PRESET = process.env.VUE_APP_CLOUDINARY_PRESET;
 
 //TODO to be written in Vuex and typescript
 export const admin = {
@@ -122,20 +122,17 @@ export const admin = {
                 });
         },
         imageUpload({commit, state}: any, file: any) {
-
-
-            let formData = new FormData();
+            let formData:FormData = new FormData();
+            formData.append('upload_preset', CLOUDINARY_PRESET);
             formData.append('file', file);
-            formData.append('upload_preset', cloudinaryPreset);
-
-            (Vue as any).http.post(cloudinaryUrl, formData, {
+            (Vue as any).http.post(CLOUDINARY_URL, formData, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).then((res: any) => res.json())
                 .then((res: any) => {
-                    commit('setImageUpload',res);
-                })
+                    commit('setImageUpload', res);
+                });
         }
     },
 }
