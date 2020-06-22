@@ -42,7 +42,9 @@
                 @md-cancel="onCancelModal"
                 @md-confirm="onConfirmModal"
         />
-
+        <div class="post_succesfull" v-if="addpost">
+            you post was posted
+        </div>
     </div>
 </template>
 
@@ -69,6 +71,14 @@
         };
         private modal: boolean = false;
 
+        get addpost():boolean {
+            let status:boolean =  this.$store.getters['admin/addPostStatus'];
+            if(status) {
+                this.clearPost();
+            }
+            return status;
+        }
+
         public submit(): void {
             this.$v.$touch();
             if (!this.$v.$invalid) {
@@ -84,9 +94,20 @@
            this.$store.dispatch('admin/addPost',this.formData);
         }
 
+        public clearPost():void {
+            this.formData = {
+                title: '',
+                desc: '',
+                contents: '',
+                rating: ''
+            };
+            this.$v.$reset();
+        }
+
         public onCancelModal(): void {
             this.modal = false;
         }
+
         public onConfirmModal(): void {
             this.modal = false;
             this.addPost();

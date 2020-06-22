@@ -114,7 +114,10 @@ export const admin = {
             (Vue as any).http.post(`posts.json?auth=${state.token}`, payload)
                 .then((res: any) => res.json())
                 .then((res: any) => {
-
+                    commit('setAddPost',true);
+                    setTimeout(function () {
+                        commit('setAddPost',false);
+                    },5000);
                 });
         }
     },
