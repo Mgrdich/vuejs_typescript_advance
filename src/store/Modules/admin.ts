@@ -19,7 +19,7 @@ export const admin = {
         pageLoading: true,
         singInLoading: false,
         addPost: false,
-        imageUpload: null
+        imageUpload: ''
     },
     getters: {
         isAuth(state: any): boolean {
@@ -69,7 +69,7 @@ export const admin = {
             state.addPost = postStatus;
         },
         setImageUpload(state: any, imageUploadStatus: any) {
-            state.imageUpload = imageUploadStatus.secure_url;
+            state.imageUpload = (!imageUploadStatus)?imageUploadStatus:imageUploadStatus.secure_url;
         }
 
     },

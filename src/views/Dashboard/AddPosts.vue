@@ -140,5 +140,9 @@
             this.$store.dispatch('admin/imageUpload',file);
         }
 
+        destroyed() { //change route
+            this.$store.commit('admin/setImageUpload','');
+        }
+
     }
 </script>
