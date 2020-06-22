@@ -2,6 +2,12 @@
     <div class="dashboard_form">
         <h1>add Posts</h1>
         <form @submit.prevent="submit">
+            <div class="input_field">
+                <input
+                        type="file"
+                        @change="processFiles($event)"
+                >
+            </div>
             <app-input
                     label="Text"
                     v-model.trim="formData.title"
@@ -111,6 +117,11 @@
         public onConfirmModal(): void {
             this.modal = false;
             this.addPost();
+        }
+
+        public processFiles(event:any) {
+            let file = event.target.files[0];
+            this.$store.dispatch('admin/imageUpload',file);
         }
 
     }

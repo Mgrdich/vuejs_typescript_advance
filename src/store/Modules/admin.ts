@@ -6,7 +6,8 @@ import {localStorage_RemoveToken, localStorage_TokenSet} from "@/util/functions"
 const apiKey = process.env.VUE_APP_API_KEY;
 const restApi: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
 const refreshApi: string = `https://securetoken.googleapis.com/v1/token?key=${apiKey}`;
-
+const cloudinaryUrl = process.env.VUE_APP_CLOUDINARY;
+const cloudinaryPreset = process.env.process.env.VUE_APP_CLOUDINARY;
 
 //TODO to be written in Vuex and typescript
 export const admin = {
@@ -16,24 +17,24 @@ export const admin = {
         refresh: null,
         authFailed: false,
         pageLoading: true,
-        singInLoading:false,
-        addPost:false,
-        imageUpload:null
-},
+        singInLoading: false,
+        addPost: false,
+        imageUpload: null
+    },
     getters: {
-        isAuth(state: any):boolean {
+        isAuth(state: any): boolean {
             return !!state.token;
         },
-        isPageLoading(state: any):boolean {
+        isPageLoading(state: any): boolean {
             return state.pageLoading;
         },
-        isSignInLoading(state:any):boolean {
+        isSignInLoading(state: any): boolean {
             return state.singInLoading;
         },
-        addPostStatus(state:any) {
+        addPostStatus(state: any) {
             return state.addPost;
         },
-        imageUpload(state:any){
+        imageUpload(state: any) {
             return state.imageUpload
         }
     },
@@ -58,23 +59,23 @@ export const admin = {
             router.push('/').then(function () {
             });
         },
-        setPageLoader(state:any,loading:boolean) {
+        setPageLoader(state: any, loading: boolean) {
             state.pageLoading = loading;
         },
-        setSignLoader(state:any,loading:boolean) {
+        setSignLoader(state: any, loading: boolean) {
             state.singInLoading = loading;
         },
-        setAddPost(state:any,postStatus:boolean) {
+        setAddPost(state: any, postStatus: boolean) {
             state.addPost = postStatus;
         },
-        setImageUpload(state:any,imageUploadStatus:string|null) {
-            state.imageUpload = imageUploadStatus;
+        setImageUpload(state: any, imageUploadStatus: any) {
+            state.imageUpload = imageUploadStatus.secure_url;
         }
 
     },
     actions: {
         singIn({commit}: any, payload: ISignIn) {
-            commit('setSignLoader',true);
+            commit('setSignLoader', true);
             (Vue as any).http.post(restApi, {
                 ...payload,
                 returnSecureToken: true
@@ -85,7 +86,7 @@ export const admin = {
                 }).catch((err: any) => {
                 commit('authValidation', true);
             }).finally(function () {
-                commit('setSignLoader',false);
+                commit('setSignLoader', false);
             })
         },
         refreshToken({commit}: any, payload: any) {
@@ -107,18 +108,34 @@ export const admin = {
                         commit("setPageLoader", false);
                     })
             } else {
-                commit("setPageLoader",false);
+                commit("setPageLoader", false);
             }
         },
         addPost({commit, state}: any, payload: any) {
             (Vue as any).http.post(`posts.json?auth=${state.token}`, payload)
                 .then((res: any) => res.json())
                 .then((res: any) => {
-                    commit('setAddPost',true);
+                    commit('setAddPost', true);
                     setTimeout(function () {
-                        commit('setAddPost',false);
-                    },5000);
+                        commit('setAddPost', false);
+                    }, 5000);
                 });
+        },
+        imageUpload({commit, state}: any, file: any) {
+
+
+            let formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', cloudinaryPreset);
+
+            (Vue as any).http.post(cloudinaryUrl, formData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then((res: any) => res.json())
+                .then((res: any) => {
+                    commit('setImageUpload',res);
+                })
         }
     },
 }
