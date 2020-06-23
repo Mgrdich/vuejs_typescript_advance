@@ -36,7 +36,13 @@
 
     @Component
     export default class Content extends Vue {
-        private posts:Array<IPosts> = posts;
+        private posts:Array<IPosts> = [];
+
+        created(){
+            this.$store.dispatch('posts/getAllPosts',{
+                limit:3
+            });
+        }
     }
 </script>
 
