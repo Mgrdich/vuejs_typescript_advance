@@ -25,7 +25,7 @@ export const posts = {
                     let posts: Array<any> = Object.keys(res).map((hasKey:string,index:number)=>{
                         console.log(res[hasKey]);
                         let obj = {...res[hasKey]};
-                        obj.key = hasKey;
+                        obj.id = hasKey;
                         return obj;
                     })
 

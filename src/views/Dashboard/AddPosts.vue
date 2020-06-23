@@ -2,14 +2,16 @@
     <div class="dashboard_form">
         <h1>add Posts</h1>
         <form @submit.prevent="submit">
-            <div>
-                <img :src="imageUploaded" alt="404"/>
+            <div class="image">
+                <img :src="imageUploaded" alt="404" v-if="!imageLoad"/>
+                <app-loader v-else></app-loader>
             </div>
             <div class="input_field">
                 <input
                         type="file"
                         @change="processFiles($event)"
                         ref="inputFile"
+                        :disabled="imageLoad"
                 >
             </div>
             <app-input
@@ -42,7 +44,7 @@
                         {value:5,translation:5},
                     ]"
             />
-            <button type="submit" class="button_default">Submit</button>
+            <button type="submit" class="button_default" :disabled="imageLoad">Submit</button>
         </form>
         <md-dialog-confirm
                 :md-active.sync="modal"
@@ -98,6 +100,9 @@
             return imageUrl;
         }
 
+        get imageLoad():boolean {
+            return this.$store.getters['admin/imageLoad'];
+        }
         public submit(): void {
             this.$v.$touch();
             if (!this.$v.$invalid) {
@@ -146,3 +151,13 @@
 
     }
 </script>
+
+<style lang="scss">
+    .image {
+        position: relative;
+        .lds-ring {
+            position: relative;
+            top:51%;
+        }
+    }
+</style>

@@ -2,7 +2,7 @@
     <div>
         <router-link
                 v-if="type==='link'"
-                to="/"
+                :to="linkTo"
                 :class="['button_default',...addClass]"
                 :style="opStyle"
         >

@@ -19,7 +19,8 @@ export const admin = {
         pageLoading: true,
         singInLoading: false,
         addPost: false,
-        imageUpload: ''
+        imageUpload: '',
+        imageUploadLoading:false
     },
     getters: {
         isAuth(state: any): boolean {
@@ -31,11 +32,14 @@ export const admin = {
         isSignInLoading(state: any): boolean {
             return state.singInLoading;
         },
-        addPostStatus(state: any) {
+        addPostStatus(state: any):boolean {
             return state.addPost;
         },
-        imageUpload(state: any) {
+        imageUpload(state: any):string {
             return state.imageUpload
+        },
+        imageLoad(state:any):boolean {
+            return state.imageUploadLoading
         }
     },
     mutations: {
@@ -70,6 +74,9 @@ export const admin = {
         },
         setImageUpload(state: any, imageUploadStatus: any) {
             state.imageUpload = (!imageUploadStatus)?imageUploadStatus:imageUploadStatus.secure_url;
+        },
+        setImageUploadLoading(state:any,loading:boolean) {
+            state.imageUploadLoading = loading;
         }
 
     },
@@ -125,12 +132,14 @@ export const admin = {
             let formData:FormData = new FormData();
             formData.append('upload_preset', CLOUDINARY_PRESET);
             formData.append('file', file);
+            commit('setImageUploadLoading', true);
             (Vue as any).http.post(CLOUDINARY_URL, formData, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).then((res: any) => res.json())
                 .then((res: any) => {
+                    commit('setImageUploadLoading', false);
                     commit('setImageUpload', res);
                 });
         }
