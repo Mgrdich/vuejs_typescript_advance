@@ -25,7 +25,7 @@
 
     @Component
     export default class Button extends Vue {
-        @Prop({required: true}) readonly linkTo!: string;
+        @Prop() readonly linkTo!: string;
         @Prop({required: true,default:'btn'}) readonly type!: 'btn' | 'link';
         @Prop({required: false}) readonly opStyle!: Object;
         @Prop({required: false}) readonly addClass!: Array<string>;

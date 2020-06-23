@@ -26,6 +26,16 @@
                 </md-card-actions>
             </md-card>
         </div>
+
+        <div class="load_more">
+            <app-button
+                type="btn"
+                :addClass="['small_link']"
+                :action="loadMore"
+            >
+            Load More
+            </app-button>
+        </div>
     </div>
 </template>
 
@@ -40,6 +50,11 @@
             return  this.$store.getters['posts/getAllPosts'];
         }
 
+        public loadMore():void {
+            this.$store.dispatch('posts/getAllPosts',{
+                limit:this.posts.length + 3
+            });
+        }
         created(){
             this.$store.dispatch('posts/getAllPosts',{
                 limit:3
