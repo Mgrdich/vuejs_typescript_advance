@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import {IPosts} from "@/interfaces";
 
 export const posts = {
     namespaced: true,
@@ -6,7 +7,9 @@ export const posts = {
         posts:[]
     },
     getters:{
-
+        getAllPosts(state:any):IPosts {
+            return state.posts;
+        }
     },
     mutations: {
         getAllPosts(state:any,posts:Array<any>) {
@@ -19,14 +22,13 @@ export const posts = {
             (Vue as any).http.get(`posts.json?orderBy="$key"&limitToLast=${payload.limit}`)
                 .then((res:any)=>res.json())
                 .then((res:any)=>{
-                    let posts: Array<any> = [];
-                    for (let key of res) {
-                        posts.push({
-                            ...res[key],
-                            id: key
-                        })
-                    }
-                    console.log(posts);
+                    let posts: Array<any> = Object.keys(res).map((hasKey:string,index:number)=>{
+                        console.log(res[hasKey]);
+                        let obj = {...res[hasKey]};
+                        obj.key = hasKey;
+                        return obj;
+                    })
+
                     commit('getAllPosts',posts.reverse());
                 })
         }

@@ -3,13 +3,13 @@
         <div class="home_container">
             <md-card v-for="(post,index) in posts" :key="index">
                 <md-card-media md-ratio="4:3">
-                    <img :src="require(`../../assets/images/featured/${post.img}`)"/>
+                    <img :src="post.img"/>
                 </md-card-media>
 
                 <md-card-header>
                     <h2 class="md-title">{{ post.title }}</h2>
                     <div class="md-subhead">
-                        <div>{{ post.description }}</div>
+                        <div>{{ post.desc }}</div>
                     </div>
                 </md-card-header>
 
@@ -31,12 +31,14 @@
 
 <script lang="ts">
     import {Vue, Component} from "vue-property-decorator";
-    import {posts} from '@/assets/posts'
     import {IPosts} from "@/interfaces";
 
     @Component
     export default class Content extends Vue {
-        private posts:Array<IPosts> = [];
+
+        get posts():Array<IPosts> {
+            return  this.$store.getters['posts/getAllPosts'];
+        }
 
         created(){
             this.$store.dispatch('posts/getAllPosts',{

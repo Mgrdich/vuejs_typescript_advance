@@ -2,11 +2,13 @@ export interface IPosts {
     id:string;
     img:string;
     game:string;
-    description:string;
+    description?:string;
+    desc:string;
     content:string;
     title:string;
     rating:number;
     date:string;
+    key:string;
 }
 
 export interface ISignIn {
