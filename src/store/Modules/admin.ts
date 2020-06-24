@@ -21,7 +21,8 @@ export const admin = {
         addPost: false,
         imageUpload: '',
         imageUploadLoading: false,
-        adminPosts:[]
+        adminPosts:[],
+        adminPostLoading:false
     },
     getters: {
         isAuth(state: any): boolean {
@@ -44,6 +45,9 @@ export const admin = {
         },
         adminPosts(state:any):Array<IPosts> {
             return state.adminPosts;
+        },
+        adminPostLoading(state:any):boolean {
+            return state.adminPostLoading;
         }
     },
     mutations: {
@@ -84,6 +88,10 @@ export const admin = {
         },
         getAdminPosts(state: any,posts:Array<IPosts>) {
             state.adminPosts = posts;
+            state.adminPostLoading = false;
+        },
+        setLoaderAdmin(state:any,loading:boolean) {
+            state.adminPostLoading = loading;
         }
 
     },
@@ -151,6 +159,7 @@ export const admin = {
                 });
         },
         getAdminPosts({commit}: any) {
+             commit('setLoaderAdmin',true);
             (Vue as any).http.get('posts.json')
                 .then((res: any) => res.json())
                 .then((res: any) => {

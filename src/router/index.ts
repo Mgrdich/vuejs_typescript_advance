@@ -36,8 +36,8 @@ const routes: Array<RouteConfig> = [
         ...authGuard,
         children:[
             {path: '', component: MainDashboard},
-            {path:'/add_posts',component:AddPosts},
-            {path:'/posts_list',component:PostsLists}
+            {path:'add_posts',component:AddPosts},
+            {path:'posts_list',component:PostsLists}
         ]
     },
     {

@@ -5,7 +5,7 @@ import router from './router';
 import VueResource from 'vue-resource';
 import Vuelidate from "vuelidate";
 import wysiwyg from "vue-wysiwyg";
-import { MdCard, MdButton , MdContent,MdDialog ,MdDialogConfirm} from 'vue-material/dist/components'
+import { MdCard, MdButton , MdContent,MdDialog ,MdDialogConfirm,MdTable} from 'vue-material/dist/components'
 
 import store from './store';
 
@@ -20,13 +20,16 @@ Vue.component('app-loader',Loader);
 Vue.component('app-input',InputField);
 Vue.component('app-dropdown',DropDown);
 
-/* Plugins */
+
 /* MATERIAL */
 Vue.use(MdCard);
 Vue.use(MdButton);
 Vue.use(MdDialog);
 Vue.use(MdDialogConfirm);
 Vue.use(MdContent);
+Vue.use(MdTable);
+
+/* Plugins */
 Vue.use(VueResource);
 Vue.use(Vuelidate);
 Vue.use(wysiwyg, {}); // config is optional. more below
