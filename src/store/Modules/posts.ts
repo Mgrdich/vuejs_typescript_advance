@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import {IPosts} from "@/interfaces";
-import has = Reflect.has;
 
 export const posts = {
     namespaced: true,

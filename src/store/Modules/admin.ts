@@ -1,4 +1,4 @@
-import {IauthData, ISignIn} from "@/interfaces";
+import {IauthData, IPosts, ISignIn} from "@/interfaces";
 import Vue from "vue";
 import router from "../../router"
 import {localStorage_RemoveToken, localStorage_TokenSet} from "@/util/functions";
@@ -20,7 +20,8 @@ export const admin = {
         singInLoading: false,
         addPost: false,
         imageUpload: '',
-        imageUploadLoading:false
+        imageUploadLoading: false,
+        adminPosts:[]
     },
     getters: {
         isAuth(state: any): boolean {
@@ -32,14 +33,17 @@ export const admin = {
         isSignInLoading(state: any): boolean {
             return state.singInLoading;
         },
-        addPostStatus(state: any):boolean {
+        addPostStatus(state: any): boolean {
             return state.addPost;
         },
-        imageUpload(state: any):string {
+        imageUpload(state: any): string {
             return state.imageUpload
         },
-        imageLoad(state:any):boolean {
+        imageLoad(state: any): boolean {
             return state.imageUploadLoading
+        },
+        adminPosts(state:any):Array<IPosts> {
+            return state.adminPosts;
         }
     },
     mutations: {
@@ -73,10 +77,13 @@ export const admin = {
             state.addPost = postStatus;
         },
         setImageUpload(state: any, imageUploadStatus: any) {
-            state.imageUpload = (!imageUploadStatus)?imageUploadStatus:imageUploadStatus.secure_url;
+            state.imageUpload = (!imageUploadStatus) ? imageUploadStatus : imageUploadStatus.secure_url;
         },
-        setImageUploadLoading(state:any,loading:boolean) {
+        setImageUploadLoading(state: any, loading: boolean) {
             state.imageUploadLoading = loading;
+        },
+        getAdminPosts(state: any,posts:Array<IPosts>) {
+            state.adminPosts = posts;
         }
 
     },
@@ -129,7 +136,7 @@ export const admin = {
                 });
         },
         imageUpload({commit, state}: any, file: any) {
-            let formData:FormData = new FormData();
+            let formData: FormData = new FormData();
             formData.append('upload_preset', CLOUDINARY_PRESET);
             formData.append('file', file);
             commit('setImageUploadLoading', true);
@@ -141,6 +148,18 @@ export const admin = {
                 .then((res: any) => {
                     commit('setImageUploadLoading', false);
                     commit('setImageUpload', res);
+                });
+        },
+        getAdminPosts({commit}: any) {
+            (Vue as any).http.get('posts.json')
+                .then((res: any) => res.json())
+                .then((res: any) => {
+                    const posts:Array<IPosts> = Object.keys(res).map((id:string)=>{
+                            let obj = {...res[id]};
+                            obj.id = id;
+                            return obj
+                    });
+                    commit('getAdminPosts',posts);
                 });
         }
     },
