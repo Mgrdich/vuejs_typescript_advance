@@ -21,8 +21,8 @@ export const admin = {
         addPost: false,
         imageUpload: '',
         imageUploadLoading: false,
-        adminPosts:[],
-        adminPostLoading:false
+        adminPosts: [],
+        adminPostLoading: false
     },
     getters: {
         isAuth(state: any): boolean {
@@ -43,10 +43,10 @@ export const admin = {
         imageLoad(state: any): boolean {
             return state.imageUploadLoading
         },
-        adminPosts(state:any):Array<IPosts> {
+        adminPosts(state: any): Array<IPosts> {
             return state.adminPosts;
         },
-        adminPostLoading(state:any):boolean {
+        adminPostLoading(state: any): boolean {
             return state.adminPostLoading;
         }
     },
@@ -86,11 +86,11 @@ export const admin = {
         setImageUploadLoading(state: any, loading: boolean) {
             state.imageUploadLoading = loading;
         },
-        getAdminPosts(state: any,posts:Array<IPosts>) {
+        getAdminPosts(state: any, posts: Array<IPosts>) {
             state.adminPosts = posts;
             state.adminPostLoading = false;
         },
-        setLoaderAdmin(state:any,loading:boolean) {
+        setLoaderAdmin(state: any, loading: boolean) {
             state.adminPostLoading = loading;
         }
 
@@ -159,26 +159,26 @@ export const admin = {
                 });
         },
         getAdminPosts({commit}: any) {
-             commit('setLoaderAdmin',true);
+            commit('setLoaderAdmin', true);
             (Vue as any).http.get('posts.json')
                 .then((res: any) => res.json())
                 .then((res: any) => {
-                    const posts:Array<IPosts> = Object.keys(res).map((id:string)=>{
-                            let obj = {...res[id]};
-                            obj.id = id;
-                            return obj
+                    const posts: Array<IPosts> = Object.keys(res).map((id: string) => {
+                        let obj = {...res[id]};
+                        obj.id = id;
+                        return obj
                     });
-                    commit('getAdminPosts',posts);
+                    commit('getAdminPosts', posts);
                 });
         },
-        deletePost({commit,state}:any,id:string) {
+        deletePost({commit, state}: any, id: string) {
             (Vue as any).http.delete(`posts/${id}.json?auth=${state.token}`)
-                .then((res:any)=>{
-                    let newPosts:Array<IPosts> = state.adminPosts.filter((item:IPosts)=>{
-                        return  item.id !== id
+                .then((res: any) => {
+                    let newPosts: Array<IPosts> = state.adminPosts.filter((item: IPosts) => {
+                        return item.id !== id
                     });
-                    commit('getAdminPosts',newPosts);
-                })
+                    commit('getAdminPosts', newPosts);
+                });
         }
     },
 }

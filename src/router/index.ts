@@ -10,6 +10,7 @@ import MainDashboard from "@/views/Dashboard/Main.vue";
 import AddPosts from "@/views/Dashboard/AddPosts.vue";
 import PostsLists from "@/views/Dashboard/PostsLists.vue";
 import Post from "@/views/Post/Post.vue";
+import NotFound from "@/views/NotFound.vue";
 
 
 Vue.use(VueRouter);
@@ -43,6 +44,10 @@ const routes: Array<RouteConfig> = [
     {
         path: '/posts/:id',
         component:Post
+    },
+    {
+        path:'*',
+        component:NotFound
     }
 ]
 
