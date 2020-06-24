@@ -9,6 +9,7 @@ import Dashboard from "@/views/Dashboard/Dashboard.vue";
 import MainDashboard from "@/views/Dashboard/Main.vue";
 import AddPosts from "@/views/Dashboard/AddPosts.vue";
 import PostsLists from "@/views/Dashboard/PostsLists.vue";
+import Post from "@/views/Post/Post.vue";
 
 
 Vue.use(VueRouter);
@@ -35,9 +36,13 @@ const routes: Array<RouteConfig> = [
         ...authGuard,
         children:[
             {path: '', component: MainDashboard},
-            {path:'add_posts',component:AddPosts},
-            {path:'posts_list',component:PostsLists}
+            {path:'/add_posts',component:AddPosts},
+            {path:'/posts_list',component:PostsLists}
         ]
+    },
+    {
+        path: '/posts/:id',
+        component:Post
     }
 ]
 
