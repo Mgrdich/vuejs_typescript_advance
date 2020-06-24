@@ -170,6 +170,15 @@ export const admin = {
                     });
                     commit('getAdminPosts',posts);
                 });
+        },
+        deletePost({commit,state}:any,id:string) {
+            (Vue as any).http.delete(`posts/${id}.json?auth=${state.token}`)
+                .then((res:any)=>{
+                    let newPosts:Array<IPosts> = state.adminPosts.filter((item:IPosts)=>{
+                        return  item.id !== id
+                    });
+                    commit('getAdminPosts',newPosts);
+                })
         }
     },
 }

@@ -13,12 +13,20 @@
                 <md-table-cell>{{post.desc}}</md-table-cell>
                 <md-table-cell>{{post.rating}}</md-table-cell>
                 <md-table-cell>
-                    <div class="post_delete">
+                    <div class="post_delete" @click="deleteHandler(post.id)">
                         Delete
                     </div>
                 </md-table-cell>
             </md-table-row>
         </md-table>
+        <md-dialog-confirm
+                :md-active.sync="modal"
+                md-content="are you sure want to delete?"
+                md-confirm-text="Agree"
+                md-cancel-text="Disagree"
+                @md-cancel="onCancelModal"
+                @md-confirm="onConfirmModal"
+        />
     </div>
 </template>
 
@@ -28,13 +36,30 @@
 
     @Component
     export default class PostsLists extends Vue {
+        private modal: boolean = false;
+        private toDeleteId: string = '';
 
-        get posts():Array<IPosts> {
+
+        get posts(): Array<IPosts> {
             return this.$store.getters["admin/adminPosts"];
         }
 
-        get loading():boolean {
+        get loading(): boolean {
             return this.$store.getters["admin/adminPostLoading"];
+        }
+
+        public deleteHandler(id: string): void {
+            this.toDeleteId = id;
+            this.modal = true;
+        }
+
+        public onCancelModal(): void {
+            this.modal = false;
+        }
+
+        public onConfirmModal(): void {
+            this.$store.dispatch('admin/deletePost', this.toDeleteId);
+            this.modal = false;
         }
 
         created() {
